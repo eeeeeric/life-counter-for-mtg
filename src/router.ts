@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Auth from './views/Auth.vue';
 import Profile from './components/Profile.vue';
+import Player from './components/Player.vue';
 import NotFound from '@/views/NotFound.vue';
 
 Vue.use(Router);
@@ -18,12 +19,17 @@ export default new Router({
     {
       path: '/profile',
       name: 'profile',
-      component: Profile
+      component: Profile,
     },
     {
       path: '/auth',
       name: 'auth',
       component: Auth,
+    },
+    {
+      path: '/life-total',
+      name: 'life-total',
+      component: Player,
     },
     {
       path: '*',
