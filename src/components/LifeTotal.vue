@@ -15,14 +15,14 @@ import firebase from '@/firebase';
 
 @Component
 export default class LifeTotal extends Vue {
-  playerName: string = 'Anonymous Player';
-  lifeTotal: number = 40;
+  public playerName: string = 'Anonymous Player';
+  public lifeTotal: number = 40;
 
-  decreaseLife(): void {
+  public decreaseLife(): void {
     this.lifeTotal -= 1;
   }
 
-  increaseLife(): void {
+  public increaseLife(): void {
       this.lifeTotal += 1;
   }
 }

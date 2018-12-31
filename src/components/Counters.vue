@@ -33,65 +33,65 @@ import firebase from '@/firebase';
 
 @Component
 export default class Counters extends Vue {
-  poison: number = 0;
-  energy: number = 0;
-  experience: number = 0;
+  public poison: number = 0;
+  public energy: number = 0;
+  public experience: number = 0;
 
-  getCounterTotal(type: string): number {
-      switch(type) { 
-        case 'poison': { 
+  public getCounterTotal(type: string): number {
+      switch (type) {
+        case 'poison': {
             return this.poison;
-        } 
-        case 'energy': { 
+        }
+        case 'energy': {
             return this.energy;
-        } 
-        case 'experience': { 
+        }
+        case 'experience': {
             return this.experience;
-        } 
-        default: { 
+        }
+        default: {
             throw new Error('Unrecognized type: ' + type);
-        } 
+        }
     }
   }
 
-  decreaseCounter(type: string): void {
-    switch(type) { 
-        case 'poison': { 
+  public decreaseCounter(type: string): void {
+    switch (type) {
+        case 'poison': {
             this.poison -= 1;
-            break; 
-        } 
-        case 'energy': { 
+            break;
+        }
+        case 'energy': {
             this.energy -= 1;
-            break; 
-        } 
-        case 'experience': { 
+            break;
+        }
+        case 'experience': {
             this.experience -= 1;
-            break; 
-        } 
-        default: { 
+            break;
+        }
+        default: {
             throw new Error('Unrecognized type: ' + type);
-        } 
-    } 
+        }
+    }
   }
 
-  increaseCounter(type: string): void {
-    switch(type) { 
-        case 'poison': { 
+  public increaseCounter(type: string): void {
+    switch (type) {
+        case 'poison': {
             this.poison += 1;
-            break; 
-        } 
-        case 'energy': { 
+            break;
+        }
+        case 'energy': {
             this.energy += 1;
-            break; 
-        } 
-        case 'experience': { 
+            break;
+        }
+        case 'experience': {
             this.experience += 1;
-            break; 
-        } 
-        default: { 
+            break;
+        }
+        default: {
             throw new Error('Unrecognized type: ' + type);
-        } 
-    } 
+        }
+    }
   }
 }
 </script>
