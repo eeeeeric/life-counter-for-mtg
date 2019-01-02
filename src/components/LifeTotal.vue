@@ -1,6 +1,6 @@
 <template>
   <div class="life-total">
-    <h2 class="player-name">{{playerName}}</h2>
+    <h2 class="player-name">{{ this.$store.state.user.displayName || playerName }}</h2>
     <div class="life-control">
         <button class="decrease-life" @click="decreaseLife">-</button>
         <h1 class="player-life-total">{{lifeTotal}}</h1>
