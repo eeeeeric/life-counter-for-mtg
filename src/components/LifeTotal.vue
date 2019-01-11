@@ -1,29 +1,35 @@
 <template>
   <div class="life-total">
-    <h2 class="player-name">{{ this.$store.state.user.displayName || playerName }}</h2>
+    <h2 class="player-name">{{ playerName }}</h2>
     <div class="life-control">
         <button class="decrease-life" @click="decreaseLife">-</button>
-        <h1 class="player-life-total">{{lifeTotal}}</h1>
+        <h1 class="player-life-total">{{ lifeTotal }}</h1>
         <button class="increase-life" @click="increaseLife">+</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import firebase from '@/firebase';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import * as LifeSDK from '@/sdk/sdk.ts';
 
 @Component
 export default class LifeTotal extends Vue {
-  public playerName: string = 'Anonymous Player';
-  public lifeTotal: number = 40;
+  @Prop({ type: String, default: 'Anonymous Player' })
+  public playerName!: string;
+
+  @Prop({ type: Number })
+  public lifeTotal!: number;
+
+  @Prop({ type: String })
+  public room!: string;
 
   public decreaseLife(): void {
-    this.lifeTotal -= 1;
+    LifeSDK.setLife(this.room, this.playerName, this.lifeTotal - 1);
   }
 
   public increaseLife(): void {
-      this.lifeTotal += 1;
+    LifeSDK.setLife(this.room, this.playerName, this.lifeTotal + 1);
   }
 }
 </script>
