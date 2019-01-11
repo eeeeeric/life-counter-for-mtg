@@ -6,14 +6,14 @@ import firebase from '@/firebase';
  */
 export async function createRoom(player: string): Promise<string> {
     const docRef = firebase.firestore().collection('Rooms').doc();
-    const createRoom = docRef.set({
+    const createRoomPromise = docRef.set({
         players: [player],
     });
     const createPlayerDoc = firebase.firestore().doc(`Rooms/${docRef.id}/Players/${player}`)
         .set({
             life: 40,
         });
-    await Promise.all([createRoom, createPlayerDoc]);
+    await Promise.all([createRoomPromise, createPlayerDoc]);
     return docRef.id;
 }
 

@@ -18,7 +18,7 @@ export default class Join extends Vue {
       const uid = this.$store.state.user.uid;
       LifeSDK.joinRoom(uid, this.roomCode).then(() => {
         this.$router.push(`/room/${this.roomCode}/player/${uid}`);
-      })
+      });
     }
 }
 </script>
