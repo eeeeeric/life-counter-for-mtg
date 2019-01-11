@@ -19,7 +19,7 @@ export async function createRoom(player: string): Promise<string> {
 
 export async function joinRoom(player: string, room: string): Promise<void> {
     const docRef = firebase.firestore().doc(`Rooms/${room}`);
-    const updateRoom = docRef.set({
+    const updateRoom = docRef.update({
         players: firebase.firestore.FieldValue.arrayUnion(player),
     });
     const createPlayerDoc = firebase.firestore().doc(`Rooms/${room}/Players/${player}`)
