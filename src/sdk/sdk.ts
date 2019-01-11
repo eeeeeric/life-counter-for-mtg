@@ -4,27 +4,29 @@ import firebase from '@/firebase';
  *
  * @param player The name of the player creating the room
  */
-export function createRoom(player: string): string {
+export async function createRoom(player: string): Promise<string> {
     const docRef = firebase.firestore().collection('Rooms').doc();
-    docRef.set({
+    const createRoom = docRef.set({
         players: [player],
     });
-    const playerRef = firebase.firestore().doc(`Rooms/${docRef.id}/Players/${player}`)
+    const createPlayerDoc = firebase.firestore().doc(`Rooms/${docRef.id}/Players/${player}`)
         .set({
             life: 40,
         });
+    await Promise.all([createRoom, createPlayerDoc]);
     return docRef.id;
 }
 
-export function joinRoom(player: string, room: string) {
-    const docRef = firebase.firestore().doc('Rooms/${room}');
-    docRef.set({
+export async function joinRoom(player: string, room: string): Promise<void> {
+    const docRef = firebase.firestore().doc(`Rooms/${room}`);
+    const updateRoom = docRef.set({
         players: firebase.firestore.FieldValue.arrayUnion(player),
     });
-    const playerRef = firebase.firestore().doc(`Rooms/${room}/Players/${player}`)
+    const createPlayerDoc = firebase.firestore().doc(`Rooms/${room}/Players/${player}`)
         .set({
             life: 40,
         });
+    await Promise.all([updateRoom, createPlayerDoc]);
 }
 
 export function listenToRoom(room: string, callback: (snapshot: firebase.firestore.QuerySnapshot) => void): void {

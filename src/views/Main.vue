@@ -13,8 +13,9 @@ import * as LifeSDK from '@/sdk/sdk.ts';
 export default class Main extends Vue {
     public host(): void {
         const uid = this.$store.state.user.uid;
-        const roomId = LifeSDK.createRoom(uid);
-        this.$router.push(`/room/${roomId}/player/${uid}`);
+        LifeSDK.createRoom(uid).then((roomId: string) => {
+          this.$router.push(`/room/${roomId}/player/${uid}`);
+        });
     }
 }
 </script>

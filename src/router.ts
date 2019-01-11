@@ -8,6 +8,7 @@ import Room from '@/views/Room.vue';
 import Auth from './views/Auth.vue';
 import Profile from './components/Profile.vue';
 import Player from './components/Player.vue';
+import MultiPlayer from './components/MultiPlayer.vue';
 import RequiresAuth from './views/RequiresAuth.vue';
 import NotFound from '@/views/NotFound.vue';
 
@@ -52,12 +53,15 @@ const router = new Router({
     },
     {
       path: '/room/:room_id',
-      name: 'room',
       component: Room, // TODO change me to all player view
       meta: {
         requiresAuth: true,
       },
       children: [
+        {
+          path: '',
+          component: MultiPlayer,
+        },
         {
           path: 'player/:player',
           component: Player,

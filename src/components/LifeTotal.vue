@@ -1,10 +1,10 @@
 <template>
   <div class="life-total">
-    <h2 class="player-name">{{ playerName }}</h2>
+    <router-link :to="`/room/${room}/player/${playerName}`"><h2 class="player-name">{{ playerName }}</h2></router-link>
     <div class="life-control">
-        <button class="decrease-life" @click="decreaseLife">-</button>
+        <button v-if="!readOnly" class="decrease-life" @click="decreaseLife">-</button>
         <h1 class="player-life-total">{{ lifeTotal }}</h1>
-        <button class="increase-life" @click="increaseLife">+</button>
+        <button v-if="!readOnly" class="increase-life" @click="increaseLife">+</button>
     </div>
   </div>
 </template>
@@ -23,6 +23,9 @@ export default class LifeTotal extends Vue {
 
   @Prop({ type: String })
   public room!: string;
+
+  @Prop({ type: Boolean })
+  public readOnly!: boolean;
 
   public decreaseLife(): void {
     LifeSDK.setLife(this.room, this.playerName, this.lifeTotal - 1);

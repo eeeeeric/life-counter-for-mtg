@@ -1,8 +1,7 @@
 <template>
   <div class="room">
-    <h1>This is room {{ $route.params.room_id }}.</h1>
-    <Player v-for="player in $store.state.room" :key="player.uid" 
-        :playerName="player.uid" :life="player.life" :uid="player.uid" />
+    <h1>This is room <router-link :to="`/room/${$route.params.room_id}`">{{ $route.params.room_id }}</router-link>.</h1>
+    <router-view />
   </div>
 </template>
 

@@ -1,7 +1,6 @@
 <template>
   <div class="player">
-    <p>Room {{ getRoom }}</p>
-    <LifeTotal :room="getRoom" :playerName="playerName" :lifeTotal="life" />
+    <LifeTotal v-if="this.$store.state.room[getUID]" :room="getRoom" :playerName="getPlayerName" :lifeTotal="getLife" :readOnly="false" />
     <!-- <Counters /> -->
     <!-- <CommanderDamage v-for="opponent in getOpponents()" v-bind:key="opponent.name" v-bind:opponentProp="opponent.name" /> -->
   </div>
@@ -34,6 +33,18 @@ export default class Player extends Vue {
 
     get getRoom(): string {
         return this.$route.params.room_id;
+    }
+
+    get getUID(): string {
+        return this.uid || this.$route.params.player;
+    }
+
+    get getPlayerName(): string {
+        return this.getUID;
+    }
+
+    get getLife(): number {
+        return this.life || this.$store.state.room[this.getUID].life;
     }
 
     public getOpponents(): any[] {
