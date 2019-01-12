@@ -1,7 +1,8 @@
 <template>
   <div class="multi-player">
     <Player v-for="player in $store.state.room" :key="player.uid" 
-      :playerName="player.uid" :life="player.life" :uid="player.uid" />
+      :playerName="player.uid" :life="player.life" :uid="player.uid"
+      :readOnly="player.uid !== $store.state.user.uid" />
   </div>
 </template>
 

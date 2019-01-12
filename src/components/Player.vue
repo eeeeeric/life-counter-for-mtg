@@ -1,6 +1,6 @@
 <template>
   <div class="player">
-    <LifeTotal v-if="this.$store.state.room[getUID]" :room="getRoom" :playerName="getPlayerName" :lifeTotal="getLife" :readOnly="false" />
+    <LifeTotal v-if="this.$store.state.room[getUID]" :room="getRoom" :playerName="getPlayerName" :lifeTotal="getLife" :readOnly="getReadOnly" />
     <!-- <Counters /> -->
     <!-- <CommanderDamage v-for="opponent in getOpponents()" v-bind:key="opponent.name" v-bind:opponentProp="opponent.name" /> -->
   </div>
@@ -31,6 +31,9 @@ export default class Player extends Vue {
     @Prop({ type: Number })
     public life!: number;
 
+    @Prop({ type: Boolean, default: false })
+    public readOnly!: boolean;
+
     get getRoom(): string {
         return this.$route.params.room_id;
     }
@@ -45,6 +48,10 @@ export default class Player extends Vue {
 
     get getLife(): number {
         return this.life || this.$store.state.room[this.getUID].life;
+    }
+
+    get getReadOnly(): boolean {
+        return this.readOnly || this.getUID !== this.$store.state.user.uid;
     }
 
     public getOpponents(): any[] {
