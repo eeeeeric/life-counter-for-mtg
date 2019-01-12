@@ -1,7 +1,14 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+    // match /{document=**} {
+    //   allow read: if true;
+    // }
+    match /Rooms/{room}/Players/{player} {
+    	// Allow read for any user in the players attribute on the room
+    	allow read: if get(/databases/$(database)/documents/Rooms/$(room))
+      	.data.players[request.auth.uid] != null;
+      // Allow write for just the player's own state
+    	allow write: if request.auth.uid == player;
     }
   }
 }
