@@ -3,6 +3,9 @@ service cloud.firestore {
     // match /{document=**} {
     //   allow read: if true;
     // }
+    match /Rooms/{room} {
+    	allow read, write: if true; // TODO this should be created by a Cloud Function
+    }
     match /Rooms/{room}/Players/{player} {
     	// Allow read for any user in the players attribute on the room
     	allow read: if get(/databases/$(database)/documents/Rooms/$(room))

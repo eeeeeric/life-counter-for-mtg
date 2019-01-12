@@ -7,7 +7,9 @@ import firebase from '@/firebase';
 export async function createRoom(player: string): Promise<string> {
     const docRef = firebase.firestore().collection('Rooms').doc();
     const createRoomPromise = docRef.set({
-        players: [player],
+        players: {
+            [player]: player,
+        }
     });
     const createPlayerDoc = firebase.firestore().doc(`Rooms/${docRef.id}/Players/${player}`)
         .set({
@@ -20,7 +22,7 @@ export async function createRoom(player: string): Promise<string> {
 export async function joinRoom(player: string, room: string): Promise<void> {
     const docRef = firebase.firestore().doc(`Rooms/${room}`);
     const updateRoom = docRef.update({
-        players: firebase.firestore.FieldValue.arrayUnion(player),
+        ['players.' + player]: player,
     });
     const createPlayerDoc = firebase.firestore().doc(`Rooms/${room}/Players/${player}`)
         .set({
